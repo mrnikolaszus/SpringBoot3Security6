@@ -8,9 +8,7 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +35,8 @@ public class JwtService {
             Map<String, Object> extraClaims,
             UserDetails userDetails
     ){
+
+        System.err.println(userDetails);
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
@@ -65,7 +65,7 @@ public class JwtService {
         return Jwts.parserBuilder()
                 .setSigningKey(getSignInKey())
                 .build()
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
     }
 
